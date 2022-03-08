@@ -87,12 +87,12 @@ JOIN sale.staff C ON B.manager_id = C.staff_id
 ORDER BY C.first_name, B.first_name
 
 ---- VIEW OLUSTURMA
-CREATE VIEW CUSTMOER_PRODUCT
+CREATE VIEW CUSTOMER_PRODUCT1
 AS
-SELECT	distinct D.customer_id, D.first_name, D.last_name
+SELECT	distinct D.customer_id, D.first_name, D.last_name, A.product_name
 FROM	product.product A, sale.order_item B, sale.orders C, sale.customer D
 WHERE	A.product_id=B.product_id
 AND		B.order_id = C.order_id
 AND		C.customer_id = D.customer_id
 AND		A.product_name = '2TB Red 5400 rpm SATA III 3.5 Internal NAS HDD'
-SELECT * FROM [dbo].[CUSTMOER_PRODUCT]
+SELECT * FROM [CUSTOMER_PRODUCT1]
