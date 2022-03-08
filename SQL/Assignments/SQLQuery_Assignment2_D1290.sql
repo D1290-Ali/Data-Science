@@ -6,6 +6,7 @@ WHERE	A.product_id=B.product_id
 AND		B.order_id = C.order_id
 AND		C.customer_id = D.customer_id
 AND		A.product_name = '2TB Red 5400 rpm SATA III 3.5 Internal NAS HDD'
+SELECT * FROM AA
 
 CREATE VIEW BB
 AS
@@ -15,6 +16,7 @@ WHERE	A.product_id=B.product_id
 AND		B.order_id = C.order_id
 AND		C.customer_id = D.customer_id
 AND		A.product_name = 'Polk Audio - 50 W Woofer - Black'
+SELECT * FROM BB
 
 CREATE VIEW CC
 AS
@@ -24,6 +26,7 @@ WHERE	A.product_id=B.product_id
 AND		B.order_id = C.order_id
 AND		C.customer_id = D.customer_id
 AND		A.product_name = 'SB-2000 12 500W Subwoofer (Piano Gloss Black)'
+SELECT * FROM CC
 
 CREATE VIEW DD
 AS
@@ -33,6 +36,13 @@ WHERE	A.product_id=B.product_id
 AND		B.order_id = C.order_id
 AND		C.customer_id = D.customer_id
 AND		A.product_name = 'Virtually Invisible 891 In-Wall Speakers (Pair)'
+SELECT * FROM DD
+
+SELECT AA.customer_id, AA.first_name, AA.last_name, BB.product_name, CC.product_name, DD.product_name
+FROM AA
+LEFT JOIN BB ON AA.customer_id=BB.customer_id
+LEFT JOIN CC ON AA.customer_id=CC.customer_id
+LEFT JOIN DD ON AA.customer_id=DD.customer_id
 
 SELECT AA.customer_id, AA.first_name, AA.last_name,
 CASE WHEN BB.product_name is null THEN 'No' ELSE 'Yes' END AS First_product,
