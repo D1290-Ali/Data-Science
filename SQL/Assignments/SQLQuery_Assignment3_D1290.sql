@@ -21,16 +21,10 @@ INSERT Actions VALUES
 ,(9,'B', 'Review')
 ,(10,'A', 'Review')
 
+SELECT *
+FROM Actions
 
 --b. Retrieve count of total Actions and Orders for each Advertisement Type,
-
-SELECT Adv_Type, COUNT(Actions) Total, Actions
-FROM Actions
-WHERE Actions = 'Order'
-GROUP BY Adv_Type, Actions
-
-
---c. Calculate Orders (Conversion) rates for each Advertisement Type by dividing by total count of actions casting as float by multiplying by 1.0.
 
 CREATE VIEW TT 
 AS
@@ -45,6 +39,16 @@ SELECT Adv_Type, COUNT(Actions) Total_Order
 FROM Actions
 GROUP BY Adv_Type
 
+SELECT TT.Adv_Type, Total_Order, Total
+FROM TT, T_O
+WHERE TT.Adv_Type = T_O.Adv_Type
+
+--c. Calculate Orders (Conversion) rates for each Advertisement Type by dividing by total count of actions casting as float by multiplying by 1.0.
+
 SELECT TT.Adv_Type, ROUND(CAST(Total AS float)/CAST(Total_Order AS float), 2) AS Conversion_Rate
+FROM TT, T_O
+WHERE TT.Adv_Type = T_O.Adv_Type
+
+SELECT TT.Adv_Type, ROUND(CONVERT(float,Total)/CONVERT(float,Total_Order), 2) AS Conversion_Rat
 FROM TT, T_O
 WHERE TT.Adv_Type = T_O.Adv_Type
