@@ -52,3 +52,15 @@ WHERE TT.Adv_Type = T_O.Adv_Type
 SELECT TT.Adv_Type, ROUND(CONVERT(float,Total)/CONVERT(float,Total_Order), 2) AS Conversion_Rat
 FROM TT, T_O
 WHERE TT.Adv_Type = T_O.Adv_Type
+
+
+--2nd Type of Solution
+select Adv_Type,  conv_rate
+from (
+		select distinct Adv_Type,Actions,
+				COUNT (Actions) over (partition by Adv_Type ) total_actions_of_Adv_Type,
+				COUNT (Actions) over (partition by Adv_Type,Actions ) actions_portions_of_Adv_Type,
+				cast ((1.0 * COUNT (Actions) over (partition by Adv_Type,Actions ) / COUNT (Actions) over (partition by Adv_Type )) as decimal (5,2)) conv_rate
+				from	Actions
+	 ) as T1
+where Actions = 'Order'
