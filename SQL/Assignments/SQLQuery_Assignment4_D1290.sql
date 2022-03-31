@@ -5,8 +5,8 @@ with tbl as (
 			 )
 select product_id, 
 	CASE 
-        WHEN AVG(A.sale_quantity) > AVG(A.lead1) THEN 'Positive'
-		WHEN AVG(A.sale_quantity) < AVG(A.lead1) THEN 'Negative'
+        WHEN AVG(A.sale_quantity) < AVG(A.lead1) THEN 'Positive'
+		WHEN AVG(A.sale_quantity) > AVG(A.lead1) THEN 'Negative'
 		WHEN AVG(A.sale_quantity) = AVG(A.lead1) THEN 'Neutral'
         ELSE '-'
     END as [Discount Effect]
