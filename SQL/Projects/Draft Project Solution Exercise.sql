@@ -10,9 +10,39 @@ ORDER BY Order_ID
 
 
 --Duplicate Values in Multiple Columns
-SELECT OrderID, ProductID, COUNT(*)
-FROM OrderDetails
-GROUP BY OrderID, ProductID
+SELECT Ord_id, COUNT(*)
+FROM market_fact
+GROUP BY Ord_id
+HAVING COUNT(*)>1
+
+SELECT distinct Ord_id
+FROM market_fact
+
+SELECT distinct Cust_id
+FROM market_fact
+
+SELECT distinct Prod_id
+FROM market_fact
+
+SELECT distinct Ship_id
+FROM market_fact
+
+SELECT Order_ID
+FROM shipping_dimen
+
+SELECT Cust_id, COUNT(*)
+FROM market_fact
+GROUP BY Cust_id
+HAVING COUNT(*)>1
+
+SELECT Prod_id, COUNT(*)
+FROM market_fact
+GROUP BY Prod_id
+HAVING COUNT(*)>1
+
+SELECT Ship_id, COUNT(*)
+FROM market_fact
+GROUP BY Ship_id
 HAVING COUNT(*)>1
 
 --if you want the IDs of the dups
@@ -47,9 +77,9 @@ SELECT * FROM @YourTable
 
 
 --finding null values
-SELECT column_names
-FROM table_name
-WHERE column_name IS NULL;
+SELECT *
+FROM market_fact
+WHERE any columns IS  not NULL;
 
 SELECT CustomerName, ContactName, Address
 FROM Customers
@@ -114,3 +144,7 @@ FROM shipping_dimen
 
 SELECT SUBSTRING(Ship_id, (CHARINDEX('_',Ship_id)+1), LEN(Ship_id)) Ship_id
 FROM shipping_dimen
+
+
+
+ALTER TABLE dbo.market_fact ADD CONSTRAINT pk_market  PRIMARY KEY CLUSTERED(   [ID],	[Ord_id] ,	[Prod_id] ,	[Ship_id] ,	[Cust_id] )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY =OFF, ALLOW_ROW_LOCKS = ON,ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
